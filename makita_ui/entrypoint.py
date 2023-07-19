@@ -86,4 +86,5 @@ def run_makita_ui():
     interface.execute()
 
 if __name__ == "__main__":
-    run_makita_ui()
+    interface = MakitaUI()
+    interface.execute()
