@@ -52,7 +52,7 @@ The template window has several options that are dynamically adjusted based on t
 - Generate Template: Generates the selected template with specified parameters.
 
 `--Data Folder--`
-- Create Data Folder: This button will create a data folder in the output directory.
+- Create Data Folder: This button will create a data folder in the output directory. Only available if no data folder is present.
 - Open Data Folder: Opens the data folder in your file explorer.
 
 ### Add Script Window
