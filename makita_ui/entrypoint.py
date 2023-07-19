@@ -76,6 +76,7 @@ class MakitaUI:
 
                 args = [
                         values["-TEMPLATE-"],
+                        "-s", data_dir,
                         "-o", str(values['template_output_dir']),
                         "--init_seed", str(values['init_seed']),
                         "--model_seed", str(values['model_seed']),
@@ -96,7 +97,6 @@ class MakitaUI:
 
                 args.extend(extra_args)
                 template._template(args, None)
-                print(args)
                 sg.popup(f"Template generated for {args}")
 
             elif event == "-TEMPLATE-":
