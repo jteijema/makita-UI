@@ -5,6 +5,8 @@ from pathlib import Path
 from asreviewcontrib.makita.config import TEMPLATES_FP
 from asreviewcontrib.makita.utils import FileHandler
 
+sg.theme('LightBlue2')
+
 
 class MakitaUI:
     def __init__(self):
