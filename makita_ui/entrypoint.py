@@ -47,13 +47,37 @@ class MakitaUI:
 
         window.close()
 
+    def _show_add_script_window(self, output_dir):
+        # Get the list of available scripts
+        available_scripts = [
+            p.stem[7:] for p in Path(TEMPLATES_FP).glob("script_*.template")
+    ]
+        self.file_handler = FileHandler()
+        self.file_handler.overwrite_all = True
+
+        add_script_layout = [
+            [sg.Text("Select Scripts:")],
+            [sg.Listbox(values=available_scripts, size=(30, 6), select_mode=sg.LISTBOX_SELECT_MODE_MULTIPLE)],
+            [sg.Button("Back"), sg.Button("Create")]
+        ] 
+        window = sg.Window("Add Script", add_script_layout)
 
         while True:
             event, values = window.read()
-            if event == sg.WINDOW_CLOSED:
+            if event == sg.WINDOW_CLOSED or event == "Back":
                 break
-            elif event == "Click Me":
-                window["-OUTPUT-"].update("Button Clicked!")
+            elif event == "Create":
+                print("Selected scripts: ", values[0])
+                selected_scripts = values[0]
+                for script in selected_scripts:
+                    new_script = self.file_handler.render_file_from_template(
+                        script, "script")
+
+                    # export script
+                    export_fp = Path(output_dir, script)
+                    self.file_handler.add_file(new_script, export_fp)
+                sg.popup(f"Created {self.file_handler.total_files} files!\n\n{',  '.join([s for s in selected_scripts])}")
+                self.file_handler.total_files = 0
 
         window.close()
 
