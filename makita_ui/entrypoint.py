@@ -131,6 +131,7 @@ class MakitaUI:
         add_script_layout = [
             [sg.Text("Select Scripts:")],
             [sg.Listbox(values=available_scripts, size=(30, 6), select_mode=sg.LISTBOX_SELECT_MODE_MULTIPLE)],
+            [sg.Checkbox("Allow Overwrites", key="-OVERWRITE-", default=True, enable_events=True)],
             [sg.Button("Back", button_color=("white", sg.theme_background_color())), sg.Button("Create")]
         ] 
         window = sg.Window("Add Script", add_script_layout)
@@ -139,6 +140,10 @@ class MakitaUI:
             event, values = window.read()
             if event == sg.WINDOW_CLOSED or event == "Back":
                 break
+            elif event == "-OVERWRITE-":
+                self.file_handler.overwrite_all = values["-OVERWRITE-"]
+                if not values["-OVERWRITE-"]:
+                    sg.popup(f"Overwrite setting: {values['-OVERWRITE-']}\nConsole interaction will be required for each file.")
             elif event == "Create":
                 selected_scripts = values[0]
                 for script in selected_scripts:

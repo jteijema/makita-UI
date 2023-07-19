@@ -16,12 +16,10 @@ Features
 
 ## Usage
 
-To use Makita UI, simply clone the repository, navigate to the root directory, and run main.py:
+To use Makita UI, simply install directly from the repository:
 
 ```sh
-git clone https://github.com/jteijema/makita_ui.git
-cd makita_ui
-pip install .
+pip install https://github.com/jteijema/makita-UI/archive/master.zip
 ```
 
 Then run the following command:
