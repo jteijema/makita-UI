@@ -52,7 +52,7 @@ class MakitaUI:
             [sg.Text('model_seed\t'), sg.InputText(key='model_seed', default_text='250')],
             [sg.Text("\t\t", key="-INPUT-FIELD-1-"), sg.InputText(key='field-1')],
             [sg.Button("Generate Template", key="-GENERATE-TEMPLATE-")],
-            [sg.Text("--Data Folder--")],
+            [sg.Text("\n--Data Folder--")],
             [dataFolderString],
             [sg.Button("Open Data Folder", key="-OPEN-DATA-FOLDER-")],
             [sg.Button("Back", button_color=("white", sg.theme_background_color()), pad=((0, 0), (10, 0)))],
