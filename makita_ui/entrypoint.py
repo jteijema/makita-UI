@@ -20,6 +20,24 @@ class MakitaUI:
             [sg.Button("Exit", button_color=("white", sg.theme_background_color()), key="-EXIT-", pad=((0, 0), (10, 0)))]
         ]
 
+    def _create_template_layout(self, templates, dataFolderString):
+        return [
+            [sg.Text("--Template--")],
+            [sg.Text('Template\t\t'), sg.Combo(templates, size=(20, 1), key="-TEMPLATE-", enable_events=True)],
+            [sg.Text('output_dir\t'), sg.InputText(key='template_output_dir', default_text='output')],
+            [sg.Text('init_seed\t\t'), sg.InputText(key='init_seed', default_text='400')],
+            [sg.Text('model_seed\t'), sg.InputText(key='model_seed', default_text='250')],
+            [sg.Text('n_runs\t\t', visible=False, key='n_runs_text'), sg.InputText(key='n_runs', default_text='1', visible=False)],
+            [sg.Text('n_priors\t\t', visible=False, key='n_priors_text'), sg.InputText(key='n_priors', default_text='1', visible=False)],
+            [sg.Text('classifiers\t', visible=False, key='classifiers_text'), sg.InputText(key='classifiers', default_text='logistic nb rf svm', visible=False)],
+            [sg.Text('feature_extractors\t', visible=False, key='feature_extractors_text'), sg.InputText(key='feature_extractors', default_text='doc2vec sbert tfidf', visible=False)],
+            [sg.Button("Generate Template", key="-GENERATE-TEMPLATE-")],
+            [sg.Text("\n--Data Folder--")],
+            [dataFolderString],
+            [sg.Button("Open Data Folder", key="-OPEN-DATA-FOLDER-")],
+            [sg.Button("Back", button_color=("white", sg.theme_background_color()), pad=((0, 0), (10, 0)))],
+        ]
+
     def execute(self):
         window = sg.Window("Makita UI", self.layout)
 
@@ -46,19 +64,7 @@ class MakitaUI:
         else:
             dataFolderString = sg.Button("Create Data Folder", key="-CREATE-DATA-FOLDER-")
 
-        template_layout = [
-            [sg.Text("--Template--")],
-            [sg.Text('Template\t\t'), sg.Combo(templates, size=(20, 1), key="-TEMPLATE-", enable_events=True)],
-            [sg.Text('output_dir\t'), sg.InputText(key='template_output_dir', default_text='output')],
-            [sg.Text('init_seed\t\t'), sg.InputText(key='init_seed', default_text='400')],
-            [sg.Text('model_seed\t'), sg.InputText(key='model_seed', default_text='250')],
-            [sg.Text("\t\t", key="-INPUT-FIELD-1-"), sg.InputText(key='field-1')],
-            [sg.Button("Generate Template", key="-GENERATE-TEMPLATE-")],
-            [sg.Text("\n--Data Folder--")],
-            [dataFolderString],
-            [sg.Button("Open Data Folder", key="-OPEN-DATA-FOLDER-")],
-            [sg.Button("Back", button_color=("white", sg.theme_background_color()), pad=((0, 0), (10, 0)))],
-        ]
+        template_layout = self._create_template_layout(templates, dataFolderString)
 
         window = sg.Window("Template", template_layout)
 
@@ -84,15 +90,16 @@ class MakitaUI:
 
                 if values["-TEMPLATE-"] == templates[1]:
                     extra_args = [
-                        "--n_runs", str(values['field-1'])
+                        "--n_runs", str(values['n_runs'])
                     ]
                 elif values["-TEMPLATE-"] == templates[2]:
                     extra_args = [
-                        "--classifiers", str(values['field-1'])
+                        "--classifiers", str(values['classifiers']).split(" "),
+                        "--feature_extractors", str(values['feature_extractors']).split(" "),
                     ]
                 elif values["-TEMPLATE-"] == templates[0]:
                     extra_args = [
-                        "--n_priors", str(values['field-1'])
+                        "--n_priors", str(values['n_priors'])
                     ]
 
                 args.extend(extra_args)
@@ -102,16 +109,34 @@ class MakitaUI:
             elif event == "-TEMPLATE-":
                 # basic template
                 if values["-TEMPLATE-"] == templates[1]:
-                    window["-INPUT-FIELD-1-"].update("n_runs\t\t")
-                    window["field-1"].update("1")
+                    window["n_runs_text"].update(visible=True)
+                    window["n_runs"].update(visible=True)
+                    window["n_priors_text"].update(visible=False)
+                    window["n_priors"].update(visible=False)
+                    window["classifiers_text"].update(visible=False)
+                    window["classifiers"].update(visible=False)
+                    window["feature_extractors_text"].update(visible=False)
+                    window["feature_extractors"].update(visible=False)
                 # multiple_models template
                 elif values["-TEMPLATE-"] == templates[2]:
-                    window["-INPUT-FIELD-1-"].update("classifiers\t")
-                    window["field-1"].update("logistic nb rf svm")
+                    window["classifiers_text"].update(visible=True)
+                    window["classifiers"].update(visible=True)
+                    window["feature_extractors_text"].update(visible=True)
+                    window["feature_extractors"].update(visible=True)
+                    window["n_priors_text"].update(visible=False)
+                    window["n_priors"].update(visible=False)
+                    window["n_runs_text"].update(visible=False)
+                    window["n_runs"].update(visible=False)
                 # arfi template
                 elif values["-TEMPLATE-"] == templates[0]:
-                    window["-INPUT-FIELD-1-"].update("n_priors\t\t")
-                    window["field-1"].update("1")
+                    window["n_priors_text"].update(visible=True)
+                    window["n_priors"].update(visible=True)
+                    window["n_runs_text"].update(visible=False)
+                    window["n_runs"].update(visible=False)
+                    window["classifiers_text"].update(visible=False)
+                    window["classifiers"].update(visible=False)
+                    window["feature_extractors_text"].update(visible=False)
+                    window["feature_extractors"].update(visible=False)
 
             elif event == "-CREATE-DATA-FOLDER-":
                 _create_data_dir()
