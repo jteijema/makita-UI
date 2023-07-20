@@ -3,7 +3,6 @@ import PySimpleGUI as sg
 from pathlib import Path
 
 from asreviewcontrib.makita.config import TEMPLATES_FP
-from asreviewcontrib.makita.utils import FileHandler
 
 sg.theme('LightBlue2')
 
@@ -43,7 +42,7 @@ class MakitaUI:
             [sg.Button("Open work Folder", key="-OPEN-WORK-FOLDER-")],
             [sg.Text("\nTemplate", font=("Arial", 14, "bold"))],
             [sg.Text("Select a template to generate:")],
-            [sg.Text('Template\t\t'), sg.Combo(templates, size=(43, 1), key="-TEMPLATE-", enable_events=True)],
+            [sg.Text('Template\t\t'), sg.Combo(templates, size=43, key="-TEMPLATE-", enable_events=True)],
             [sg.Text('output_dir\t'), sg.InputText(key='template_output_dir', default_text='output')],
             [sg.Text('init_seed\t\t'), sg.InputText(key='init_seed', default_text='400')],
             [sg.Text('model_seed\t'), sg.InputText(key='model_seed', default_text='250')],
@@ -68,8 +67,8 @@ class MakitaUI:
         data_dir = os.path.join(os.getcwd(), "data")
         if os.path.exists(data_dir):
             # load all the files in the data folder
-            data_files = [f for f in os.listdir(data_dir) if os.path.isfile(os.path.join(data_dir, f))]
-            dataFolderString = sg.Text(f"Files in data folder:\n{', '.join(data_files)}")
+            data_files = '\n'.join([f for f in os.listdir(data_dir) if os.path.isfile(os.path.join(data_dir, f))])
+            dataFolderString = sg.Multiline(data_files, size=(61, 4), disabled=True, autoscroll=True)
         else:
             dataFolderString = sg.Button("Create Data Folder", key="-CREATE-DATA-FOLDER-")
 
@@ -182,6 +181,7 @@ class MakitaUI:
         ]
 
     def _show_add_script_window(self):
+        from asreviewcontrib.makita.utils import FileHandler
         # Get the list of available scripts
         available_scripts = [
             p.stem[7:] for p in Path(TEMPLATES_FP).glob("script_*.template")
