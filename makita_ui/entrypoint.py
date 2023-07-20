@@ -87,13 +87,17 @@ class MakitaUI:
             elif event == "-OPEN-WORK-FOLDER-":
                 os.startfile(os.getcwd())
             elif event == "-GENERATE-TEMPLATE-":
-                # check if working directory is empty
-                if len(os.listdir(os.getcwd())) != 1:
-                    sg.popup("Working directory is not empty.\nOverwriting files requires console interaction.")
                 # check if data folder exists
                 if not os.path.exists(data_dir):
                     sg.popup("Data folder does not exist, please create a data folder.")
                     continue
+                # check if data folder is empty
+                if len(os.listdir(data_dir)) == 0:
+                    sg.popup("Data folder is empty, please add data to the data folder.")
+                    continue
+                # check if working directory is empty
+                if len(os.listdir(os.getcwd())) != 1:
+                    sg.popup("Working directory is not empty.\nOverwriting files requires console interaction.")
 
                 from asreviewcontrib.makita.entrypoint import MakitaEntryPoint
                 template = MakitaEntryPoint()
