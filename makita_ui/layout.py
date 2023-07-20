@@ -1,5 +1,6 @@
 import os
 import PySimpleGUI as sg
+import platform
 
 def _mm_parameters(window):
     window["n_runs"].update(visible=False)
@@ -54,7 +55,7 @@ def _template_layout(templates, data_dir):
     return [
         [sg.Text("Work Folder", font=("Arial", 14, "bold"))],
         [sg.Text(f"Current working directory: \n {os.getcwd()}")],
-        [sg.Button("Open work Folder", key="-OPEN-WORK-FOLDER-")],
+        [sg.Button("Open work Folder", key="-OPEN-WORK-FOLDER-", visible=platform.system() == "Windows")],
         [sg.Text("\nTemplate", font=("Arial", 14, "bold"))],
         [sg.Text("Select a template to generate:")],
         [sg.Text('Template\t\t'), sg.Combo(templates, size=43, key="-TEMPLATE-", enable_events=True)],
@@ -68,6 +69,6 @@ def _template_layout(templates, data_dir):
         [sg.Button("Generate Template", key="-GENERATE-TEMPLATE-")],
         [sg.Text("\nData Folder", font=("Arial", 14, "bold"))],
         [dataFolderString],
-        [sg.Button("Open Data Folder", key="-OPEN-DATA-FOLDER-")],
+        [sg.Button("Open Data Folder", key="-OPEN-DATA-FOLDER-", visible=platform.system() == "Windows" and os.path.exists(data_dir))],
         [sg.Button("Back", button_color=("white", sg.theme_background_color()), pad=((0, 0), (10, 0)))],
     ]
