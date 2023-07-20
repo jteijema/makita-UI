@@ -12,8 +12,8 @@ setup(
         "PySimpleGUI>=4.0.0"
     ],
     entry_points={
-    "console_scripts": [
-        "makita-ui=makita_ui:run_makita_ui"
-    ]
+        "console_scripts": [
+            "makita-ui=makita_ui:run_makita_ui"
+        ]
     }
 )

@@ -12,13 +12,11 @@ class MakitaUI:
     def __init__(self):
         self.layout = layout._main_layout()
         self.makitaloaded = False
-        self.window_size = 600
 
     def execute(self):
         print("Opening Makita-UI...")
         window = sg.Window("Makita-UI",
-                           self.layout,
-                           size=(self.window_size, int(self.window_size/2.5)))
+                           self.layout)
 
         while True:
             event, values = window.read()
