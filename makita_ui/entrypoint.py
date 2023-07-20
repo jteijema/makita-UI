@@ -46,8 +46,8 @@ class MakitaUI:
             [sg.Text('output_dir\t'), sg.InputText(key='template_output_dir', default_text='output')],
             [sg.Text('init_seed\t\t'), sg.InputText(key='init_seed', default_text='400')],
             [sg.Text('model_seed\t'), sg.InputText(key='model_seed', default_text='250')],
-            [sg.Text('n_runs\t\t', visible=False, key='n_runs_text'), sg.InputText(key='n_runs', default_text='1', visible=False)],
             [sg.Text('n_priors\t\t', visible=False, key='n_priors_text'), sg.InputText(key='n_priors', default_text='1', visible=False)],
+            [sg.Text('n_runs\t\t', visible=False, key='n_runs_text'), sg.InputText(key='n_runs', default_text='1', visible=False)],
             [sg.Text('classifiers\t', visible=False, key='classifiers_text'), sg.InputText(key='classifiers', default_text='logistic nb rf svm', visible=False)],
             [sg.Text('feature_extractors\t', visible=False, key='feature_extractors_text'), sg.InputText(key='feature_extractors', default_text='doc2vec sbert tfidf', visible=False)],
             [sg.Button("Generate Template", key="-GENERATE-TEMPLATE-")],
@@ -131,34 +131,34 @@ class MakitaUI:
             elif event == "-TEMPLATE-":
                 # basic template
                 if values["-TEMPLATE-"] == templates[1]:
+                    window["n_priors_text"].update(visible=False)
+                    window["n_priors"].update(visible=False)
+                    window["classifiers_text"].update(visible=False)
+                    window["classifiers"].update(visible=False)
+                    window["feature_extractors_text"].update(visible=False)
+                    window["feature_extractors"].update(visible=False)
                     window["n_runs_text"].update(visible=True)
                     window["n_runs"].update(visible=True)
-                    window["n_priors_text"].update(visible=False)
-                    window["n_priors"].update(visible=False)
-                    window["classifiers_text"].update(visible=False)
-                    window["classifiers"].update(visible=False)
-                    window["feature_extractors_text"].update(visible=False)
-                    window["feature_extractors"].update(visible=False)
                 # multiple_models template
                 elif values["-TEMPLATE-"] == templates[2]:
-                    window["classifiers_text"].update(visible=True)
-                    window["classifiers"].update(visible=True)
-                    window["feature_extractors_text"].update(visible=True)
-                    window["feature_extractors"].update(visible=True)
                     window["n_priors_text"].update(visible=False)
                     window["n_priors"].update(visible=False)
                     window["n_runs_text"].update(visible=False)
                     window["n_runs"].update(visible=False)
+                    window["feature_extractors_text"].update(visible=True)
+                    window["feature_extractors"].update(visible=True)
+                    window["classifiers_text"].update(visible=True)
+                    window["classifiers"].update(visible=True)
                 # arfi template
                 elif values["-TEMPLATE-"] == templates[0]:
-                    window["n_priors_text"].update(visible=True)
-                    window["n_priors"].update(visible=True)
                     window["n_runs_text"].update(visible=False)
                     window["n_runs"].update(visible=False)
                     window["classifiers_text"].update(visible=False)
                     window["classifiers"].update(visible=False)
                     window["feature_extractors_text"].update(visible=False)
                     window["feature_extractors"].update(visible=False)
+                    window["n_priors_text"].update(visible=True)
+                    window["n_priors"].update(visible=True)
 
             elif event == "-CREATE-DATA-FOLDER-":
                 _create_data_dir()
