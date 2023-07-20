@@ -46,6 +46,9 @@ class MakitaUI:
             p.stem[9:-4] for p in Path(TEMPLATES_FP).glob("template_*.txt.template")
         ]
 
+        # sort templates alphabetically for macOS
+        templates.sort()
+
         # Create the layout
         data_dir = os.path.join(os.getcwd(), "data")
         window = sg.Window("Template",
@@ -95,7 +98,11 @@ class MakitaUI:
                     "--model_seed", str(values['model_seed']),
                 ]
 
-                if values["-TEMPLATE-"] == templates[1]:
+                if values["-TEMPLATE-"] == templates[0]:
+                    extra_args = [
+                        "--n_priors", str(values['n_priors'])
+                    ]
+                elif values["-TEMPLATE-"] == templates[1]:
                     extra_args = [
                         "--n_runs", str(values['n_runs'])
                     ]
@@ -103,26 +110,19 @@ class MakitaUI:
                     extra_args = [
                         "--classifiers"] + str(values['classifiers']).split() + [
                         "--feature_extractors"] + str(values['feature_extractors']).split()
-                elif values["-TEMPLATE-"] == templates[0]:
-                    extra_args = [
-                        "--n_priors", str(values['n_priors'])
-                    ]
 
                 args.extend(extra_args)
                 template._template(args, None)
                 sg.popup_scrolled(f"Succes!\n\nTemplate generated for:\n\n{args}", size=(50, 8))
 
             elif event == "-TEMPLATE-":
-                # basic template
-                if values["-TEMPLATE-"] == templates[1]:
-                    print("basic template")
-                    layout._basic_parameters(window)
-                # multiple_models template
-                elif values["-TEMPLATE-"] == templates[2]:
+                if values["-TEMPLATE-"] == templates[0]:
                     print("ARFI template")
                     layout._arfi_parameters(window)
-                # arfi template
-                elif values["-TEMPLATE-"] == templates[0]:
+                elif values["-TEMPLATE-"] == templates[1]:
+                    print("basic template")
+                    layout._basic_parameters(window)
+                elif values["-TEMPLATE-"] == templates[2]:
                     print("multiple_models template")
                     layout._mm_parameters(window)
 
