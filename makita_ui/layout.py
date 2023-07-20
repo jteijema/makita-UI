@@ -25,6 +25,13 @@ def _basic_parameters(window):
     window["feature_extractors"].update(visible=False)
 
 
+def _no_parameters(window):
+    window["n_runs"].update(visible=False)
+    window["n_priors"].update(visible=False)
+    window["classifiers"].update(visible=False)
+    window["feature_extractors"].update(visible=False)
+
+
 def _main_layout():
     '''Create the layout for the main window.'''
 
