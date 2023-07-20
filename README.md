@@ -41,9 +41,6 @@ The main window will provide you with the following options:
 
 ![image](https://github.com/jteijema/makita-UI/assets/28191416/ebdbae78-48e4-4d03-9642-8bcd159f2c36)
 
-The template window has several options that are dynamically adjusted based on the selected template:
-
-
 The template window provides various options, which dynamically adjust based on the selected template:
 #### Work Folder
 
