@@ -76,15 +76,14 @@ The "Add Script" window allows you to manage and generate scripts.
 - Output Directory: This is the directory where all generated templates and scripts will be saved. You can either manually input the directory path or click the "Browse" button to select it.
 - Allow Overwrites: A checkbox option that when selected, allows generated scripts to overwrite existing scripts in the output directory if they have the same name.
 
+## Contribute
 
-# License
+Your contributions are always welcome! Please feel free to submit a pull request.
+
+## License
 
 Makita-UI is released under the MIT License.
 
-# Acknowledgements
+## Acknowledgements
 
 Thanks to the Makita team for their work on the library that this UI was built on.
-
-# Contribute
-
-Your contributions are always welcome! Please feel free to submit a pull request.
