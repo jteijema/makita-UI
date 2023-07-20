@@ -78,9 +78,8 @@ class MakitaUI:
                     ]
                 elif values["-TEMPLATE-"] == templates[2]:
                     extra_args = [
-                        "--classifiers", str(values['classifiers']).split(" "),
-                        "--feature_extractors", str(values['feature_extractors']).split(" "),
-                    ]
+                        "--classifiers"] + str(values['classifiers']).split() + [
+                        "--feature_extractors"] + str(values['feature_extractors']).split()
                 elif values["-TEMPLATE-"] == templates[0]:
                     extra_args = [
                         "--n_priors", str(values['n_priors'])
