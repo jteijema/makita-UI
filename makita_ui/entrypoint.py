@@ -59,6 +59,7 @@ class MakitaUI:
         ]
 
     def _show_template_window(self):
+        from asreviewcontrib.makita.entrypoint import MakitaEntryPoint
         # Define your templates
         templates = [
             p.stem[9:-4] for p in Path(TEMPLATES_FP).glob("template_*.txt.template")
@@ -99,7 +100,6 @@ class MakitaUI:
                 if len(os.listdir(os.getcwd())) != 1:
                     sg.popup("Working directory is not empty.\nOverwriting files requires console interaction.")
 
-                from asreviewcontrib.makita.entrypoint import MakitaEntryPoint
                 template = MakitaEntryPoint()
 
                 args = [
