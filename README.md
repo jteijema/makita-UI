@@ -1,5 +1,7 @@
 # Makita-UI
 
+![image](https://github.com/jteijema/makita-UI/actions/workflows/python-package.yml/badge.svg)
+
 Makita-UI is a user-friendly interface for the Makita library. It provides a GUI that makes it easier for you to select templates, add scripts, and generate new ones based on your preferences.
 Features
 
