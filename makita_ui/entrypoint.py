@@ -88,11 +88,11 @@ class MakitaUI:
                 print("Generating template...")
 
                 args = [
-                        values["-TEMPLATE-"],
-                        "-s", data_dir,
-                        "-o", str(values['template_output_dir']),
-                        "--init_seed", str(values['init_seed']),
-                        "--model_seed", str(values['model_seed']),
+                    values["-TEMPLATE-"],
+                    "-s", data_dir,
+                    "-o", str(values['template_output_dir']),
+                    "--init_seed", str(values['init_seed']),
+                    "--model_seed", str(values['model_seed']),
                     ]
 
                 if values["-TEMPLATE-"] == templates[1]:
