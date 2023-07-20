@@ -11,13 +11,16 @@ sg.theme('LightBlue2')
 class MakitaUI:
     def __init__(self):
         self.layout = layout._main_layout()
+        self.makitaloaded = False
 
     def execute(self):
-        window = sg.Window("Makita UI", self.layout)
+        print("Opening Makita-UI...")
+        window = sg.Window("Makita-UI", self.layout)
 
         while True:
             event, values = window.read()
             if event == sg.WINDOW_CLOSED or event == "-EXIT-":
+                print("Closing main window...")
                 break
             elif event == "-TEMPLATE-":
                 self._show_template_window()
@@ -28,11 +31,14 @@ class MakitaUI:
 
     def _show_template_window(self):
         '''Show the template window.'''
+        print("Opening template window...")
 
         # Import and create template object
-        print("Importing template object, this may take some time...""")
+        if not self.makitaloaded: 
+            print("Loading ASReview's Makita, this may take some time...""")
         from asreviewcontrib.makita.entrypoint import MakitaEntryPoint
         template = MakitaEntryPoint()
+        self.makitaloaded = True
 
         # Define templates
         templates = [
@@ -47,28 +53,37 @@ class MakitaUI:
         while True:
             event, values = window.read()
             if event == sg.WINDOW_CLOSED or event == "Back":
+                print("Closing template window...")
                 break
             elif event == "-OPEN-WORK-FOLDER-":
+                print("Opening working directory...")
                 os.startfile(os.getcwd())
             elif event == "-GENERATE-TEMPLATE-":
                 # check if a template is selected
                 if values["-TEMPLATE-"] == "":
+                    print("No template selected, please select a template.")
                     sg.popup("No template selected, please select a template.")
                     continue
 
                 # check if data folder exists
                 if not os.path.exists(data_dir):
+                    print("Data folder does not exist, please create a data folder.")
                     sg.popup("Data folder does not exist, please create a data folder.")
                     continue
 
                 # check if data folder has csv, xslx or txt files
                 if not any(f.endswith((".csv", ".xlsx", ".ris")) for f in os.listdir(data_dir)):
+                    print("Data folder does not contain data.")
                     sg.popup("Data folder does not contain data.")
                     continue
 
                 # check if working directory is empty
                 if len(os.listdir(os.getcwd())) != 1:
+                    print("Working directory is not empty.\nOverwriting files requires console interaction.")
                     sg.popup("Working directory is not empty.\nOverwriting files requires console interaction.")
+
+                # generate template
+                print("Generating template...")
 
                 args = [
                         values["-TEMPLATE-"],
@@ -98,18 +113,25 @@ class MakitaUI:
             elif event == "-TEMPLATE-":
                 # basic template
                 if values["-TEMPLATE-"] == templates[1]:
+                    print("basic template")
                     layout._basic_parameters(window)
                 # multiple_models template
                 elif values["-TEMPLATE-"] == templates[2]:
+                    print("ARFI template")
                     layout._arfi_parameters(window)
                 # arfi template
                 elif values["-TEMPLATE-"] == templates[0]:
+                    print("multiple_models template")
                     layout._mm_parameters(window)
 
             elif event == "-CREATE-DATA-FOLDER-":
+                print("Creating data folder...")
                 os.makedirs(data_dir, exist_ok=True)
                 sg.popup(f"Data directory created at {data_dir}")
+                window['-OPEN-DATA-FOLDER-'].update(visible=True)
+                window['-CREATE-DATA-FOLDER-'].update(visible=False)
             elif event == "-OPEN-DATA-FOLDER-":
+                print("Opening data folder...")
                 os.startfile(data_dir)
 
         window.close()
@@ -118,6 +140,7 @@ class MakitaUI:
 
     def _show_add_script_window(self):
         '''Show the add script window.'''
+        print("Opening script window...")
 
         # Import and create file handler
         from asreviewcontrib.makita.utils import FileHandler
@@ -136,12 +159,15 @@ class MakitaUI:
         while True:
             event, values = window.read()
             if event == sg.WINDOW_CLOSED or event == "Back":
+                print("Closing script window...")
                 break
             elif event == "-OVERWRITE-":
+                print(f"Overwrite setting: {values['-OVERWRITE-']}")
                 self.file_handler.overwrite_all = values["-OVERWRITE-"]
                 if not values["-OVERWRITE-"]:
                     sg.popup(f"Overwrite setting: {values['-OVERWRITE-']}\nConsole interaction will be required for overwriting existing files.")
             elif event == "Create":
+                print("Creating scripts...")
                 selected_scripts = values["-SCRIPTS-"]
                 for script in selected_scripts:
                     new_script = self.file_handler.render_file_from_template(
@@ -156,7 +182,7 @@ class MakitaUI:
 
 
 def run_makita_ui():
-    '''Run the Makita UI.'''
+    '''Run the Makita-UI.'''
     interface = MakitaUI()
     interface.execute()
 
