@@ -4,14 +4,14 @@ import platform
 import pkg_resources
 
 
-def _mm_parameters(window):
+def _arfi_parameters(window):
     window["n_runs"].update(visible=False)
     window["n_priors"].update(visible=True)
     window["classifiers"].update(visible=False)
     window["feature_extractors"].update(visible=False)
 
 
-def _arfi_parameters(window):
+def _mm_parameters(window):
     window["n_runs"].update(visible=False)
     window["n_priors"].update(visible=False)
     window["classifiers"].update(visible=True)
