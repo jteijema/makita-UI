@@ -16,7 +16,9 @@ class MakitaUI:
 
     def execute(self):
         print("Opening Makita-UI...")
-        window = sg.Window("Makita-UI", self.layout, size=(self.window_size, int(self.window_size/2.5)))
+        window = sg.Window("Makita-UI",
+                           self.layout,
+                           size=(self.window_size, int(self.window_size/2.5)))
 
         while True:
             event, values = window.read()
@@ -30,12 +32,12 @@ class MakitaUI:
 
         window.close()
 
-    def _show_template_window(self):
+    def _show_template_window(self):  # noqa C901
         '''Show the template window.'''
         print("Opening template window...")
 
         # Import and create template object
-        if not self.makitaloaded: 
+        if not self.makitaloaded:
             print("Loading ASReview's Makita, this may take some time...""")
         from asreviewcontrib.makita.entrypoint import MakitaEntryPoint
         template = MakitaEntryPoint()
@@ -45,10 +47,11 @@ class MakitaUI:
         templates = [
             p.stem[9:-4] for p in Path(TEMPLATES_FP).glob("template_*.txt.template")
         ]
-        
+
         # Create the layout
         data_dir = os.path.join(os.getcwd(), "data")
-        window = sg.Window("Template", layout._template_layout(templates, data_dir))
+        window = sg.Window("Template",
+                           layout._template_layout(templates, data_dir))
 
         # Event loop
         while True:
@@ -137,8 +140,6 @@ class MakitaUI:
 
         window.close()
 
-
-
     def _show_add_script_window(self):
         '''Show the add script window.'''
         print("Opening script window...")
@@ -154,7 +155,7 @@ class MakitaUI:
         ]
 
         # Create the layout
-        window = sg.Window("Add Script", layout._script_layout(available_scripts) )
+        window = sg.Window("Add Script", layout._script_layout(available_scripts))
 
         # Event loop
         while True:
@@ -186,6 +187,7 @@ def run_makita_ui():
     '''Run the Makita-UI.'''
     interface = MakitaUI()
     interface.execute()
+
 
 if __name__ == "__main__":
     run_makita_ui()

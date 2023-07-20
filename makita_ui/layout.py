@@ -3,11 +3,13 @@ import PySimpleGUI as sg
 import platform
 import pkg_resources
 
+
 def _mm_parameters(window):
     window["n_runs"].update(visible=False)
     window["n_priors"].update(visible=True)
     window["classifiers"].update(visible=False)
     window["feature_extractors"].update(visible=False)
+
 
 def _arfi_parameters(window):
     window["n_runs"].update(visible=False)
@@ -15,16 +17,18 @@ def _arfi_parameters(window):
     window["classifiers"].update(visible=True)
     window["feature_extractors"].update(visible=True)
 
+
 def _basic_parameters(window):
     window["n_runs"].update(visible=True)
     window["n_priors"].update(visible=False)
     window["classifiers"].update(visible=False)
     window["feature_extractors"].update(visible=False)
 
+
 def _main_layout():
     '''Create the layout for the main window.'''
 
-    return [            
+    return [
         [sg.Text("Welcome to Makita-UI!", font=("Arial", 14, "bold"))],
         [sg.Text("This interface allows you to generate templates and scripts for the ASReview Makita extension.")],
         [sg.Text("Select an option below to get started:")],
@@ -34,6 +38,7 @@ def _main_layout():
         [sg.VPush()],
         [sg.Button("Exit", button_color=("white", sg.theme_background_color()), key="-EXIT-", pad=((0, 0), (10, 0))), sg.Push(), sg.Text("Makita-UI v" + pkg_resources.require("Makita-UI")[0].version, font=("Arial", 8))]
     ]
+
 
 def _template_layout(templates, data_dir):
     '''Create the layout for the template window.'''
@@ -68,6 +73,7 @@ def _template_layout(templates, data_dir):
         [sg.VPush()],
         [sg.Button("Back", button_color=("white", sg.theme_background_color()), pad=((0, 0), (10, 0)))],
     ]
+
 
 def _script_layout(available_scripts):
     '''Create the layout for the add script window.'''
