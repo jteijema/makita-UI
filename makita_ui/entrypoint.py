@@ -41,8 +41,7 @@ class MakitaUI:
         
         # Create the layout
         data_dir = os.path.join(os.getcwd(), "data")
-        template_layout = layout._template_layout(templates, data_dir)
-        window = sg.Window("Template", template_layout)
+        window = sg.Window("Template", layout._template_layout(templates, data_dir))
 
         # Event loop
         while True:
@@ -131,8 +130,7 @@ class MakitaUI:
         ]
 
         # Create the layout
-        add_script_layout = layout._script_layout(available_scripts) 
-        window = sg.Window("Add Script", add_script_layout)
+        window = sg.Window("Add Script", layout._script_layout(available_scripts) )
 
         # Event loop
         while True:
