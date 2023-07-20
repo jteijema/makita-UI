@@ -1,6 +1,6 @@
-# Makita UI
+# Makita-UI
 
-Makita UI is a user-friendly interface for the Makita library. It provides a GUI that makes it easier for you to select templates, add scripts, and generate new ones based on your preferences.
+Makita-UI is a user-friendly interface for the Makita library. It provides a GUI that makes it easier for you to select templates, add scripts, and generate new ones based on your preferences.
 Features
 
 - Selection of templates for different use-cases.
@@ -16,7 +16,7 @@ Features
 
 ## Usage
 
-To use Makita UI, simply install directly from the repository:
+To use Makita-UI, simply install directly from the repository:
 
 ```sh
 pip install https://github.com/jteijema/makita-UI/archive/master.zip
@@ -77,7 +77,7 @@ The "Add Script" window allows you to manage and generate scripts.
 
 # License
 
-Makita UI is released under the MIT License.
+Makita-UI is released under the MIT License.
 
 # Acknowledgements
 
