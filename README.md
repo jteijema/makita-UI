@@ -56,6 +56,7 @@ The template window provides various options, which dynamically adjust based on 
 #### Data Folder
 
 - Create Data Folder: This button creates a data folder in the output directory, only available if no data folder is currently present.
+- Files in Data Folder: List of files in the data folder, if available.
 - Open Data Folder: Opens the data folder in your file explorer.
 
 ### Add Script Window
