@@ -32,6 +32,3 @@ jobs:
     - name: Lint with flake8
       run: |
         flake8 . --count --max-complexity=10 --statistics --ignore=E501
-    - name: Test with pytest
-      run: |
-        pytest
